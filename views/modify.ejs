@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/mystyle/styles.css">
+</head>
+
+<body>
+    <div class="contain">
+        <div class="newCard">
+            <% if(locals.transaction){ %>
+
+                <h1>Edit Transaction</h1>
+            <form action="/api/edit/<%= transaction.id %>" method="post">
+                <label for="title">transaction Title : </label>
+                <input type="text" name="title" autocomplete="off" placeholder="Title of Transaction" id="title" value = "<%= transaction.title %>" required>
+
+                <label for="amount">Amount : </label>
+                <input type="text" name="amount" autocomplete="off" placeholder="Amount" id="amount" value = "<%= transaction.amount %>" required>
+
+                <label for="date">Date : </label>
+                <input type="text" name="date" id="date" value = "<%= transaction.date %>">
+
+                <label for="type">Select Type : </label>
+                <select name="type" id="type">
+                    <% if((transaction.type) == "Debited"){ %>
+                    <option value="Debited">Debited</option>
+                    <option value="Credited">Credited</option>
+                    <% } else { %>
+                        <option value="Credited">Credited</option>
+                    <option value="Debited">Debited</option>
+                        <% } %>
+                </select>
+
+                <label for="desciption">Description : </label>
+                <input type="text" name="description" autocomplete="off" id="desciption" cols="30" rows="10" value = "<%= transaction.description %>">
+
+                <input type="submit" value="Save Changes" id = "mybtn">
+            </form>
+
+                <% } else { %>
+            <h1>Add New Transaction</h1>
+            <form action="/api/add" method="post">
+                <label for="title">Title : </label>
+                <input type="text" name="title" autocomplete="off" placeholder="Title of Transaction" id="title" required>
+
+                <label for="amount">Amount : </label>
+                <input type="text" name="amount" autocomplete="off" placeholder="Amount" id="amount" required>
+
+                <label for="date">Date : </label>
+                <input type="date" name="date" id="date" required>
+
+                <label for="type">Select Type : </label>
+                <select name="type" id="type">
+                    <option value="Debited">Debited</option>
+                    <option value="Credited">Credited</option>
+                </select>
+
+                <label for="desciption">Description : </label>
+                <textarea name="description" autocomplete="off" id="desciption" cols="30" rows="10"></textarea>
+
+                <input type="submit" value="Add Transaction" id = "mybtn">
+            </form>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+</html>
