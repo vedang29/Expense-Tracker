@@ -4,7 +4,8 @@ import axios from "axios";
 
 const app = express();
 const port = 3000;
-const API_URL = "https://pbl-2.vercel.app/"
+// const API_URL = "https://pbl-2.vercel.app/"
+const API_URL = "http://localhost:4000"
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
