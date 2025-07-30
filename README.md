@@ -25,4 +25,3 @@ A basic Expense Tracker web application built using **Node.js**, **Express**, an
 - **Frontend**: HTML, CSS, EJS templating
 - **Hosting**: Render
 
----
