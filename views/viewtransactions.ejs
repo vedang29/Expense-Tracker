@@ -1,0 +1,43 @@
+
+<%- include("./partials/navbar.ejs") %>
+    <div class="pagecontainer">
+        <div class="bigheading">All Transactions</div>
+
+        <div class="allTransactions">
+            <% if(locals.transactions && transactions.length>0){
+             for(var i = transactions.length-1;i>=0;i--)
+                {
+                %>
+                <div class="transaction2">
+                    <div class="name">
+                        <% if(transactions[i].type==="Credited" ){ %>
+                            <div class="signal-green"></div>
+                            <% } else {%>
+                                <div class="signal-red"></div>
+                                <%} %>
+                                    <div class="actualname">
+                                        <%=transactions[i].title%>
+                                    </div>
+                    </div>
+                    <div class="details">
+                        <div class="amount"><i class="fa fa-usd" aria-hidden="true"></i>
+                            <%=transactions[i].amount%>
+                        </div>
+                        <div class="date"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            <%=transactions[i].date%>
+                        </div>
+                        <div class="description"><i class="fa fa-comment" aria-hidden="true"></i>
+                            <%=transactions[i].description%>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            <% } else { %>
+                <div class="transaction2">
+                    No transactions found. Keep track of your finances by recording transactions here!
+                    </div>
+                <% } %>
+        </div>
+    </div>
+
+</div>

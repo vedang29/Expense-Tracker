@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense-Tracker</title>
+    <link rel="icon" href="/mystyle/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/8f5410cf3c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <%-include("./partials/navbar.ejs")%> 
+
+    <div class="container wrap">
+        <!--HERO TOP -->
+        <% 
+            if(locals.transactions)
+            {
+                var totincome=0;
+                var totexpense=0;
+                var diff =0;
+                for(var i = transactions.length-1;i>=0;i--)
+                {
+                    if(transactions[i].type==="Credited")
+                    {
+                        totincome = totincome + parseInt(transactions[i].amount);
+                    }
+                    else 
+                    {
+                        totexpense = totexpense + parseInt(transactions[i].amount);
+                    }
+                }
+                diff = totincome-totexpense;
+            }
+        %>
+        <div class="heroTop">
+            <div class="mainInfo">
+                <div class="header">Total Balance</div>
+                <div class="totalBalance"><i class="fa fa-usd" aria-hidden="true"></i>
+                    <%= diff %>
+                </div>
+            </div>
+            <div class="income">
+                <i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i>
+                <div class="info">
+                    <div class="heading">Income</div>
+                    <div class="salary"><i class="fa fa-usd" aria-hidden="true"></i>
+                        <%= totincome %>
+                    </div>
+                </div>
+            </div>
+            <div class="expense">
+                <i class="fa fa-arrow-circle-down fa-2x" aria-hidden="true"></i>
+                <div class="info">
+                    <div class="heading">Expense</div>
+                    <div class="salary"><i class="fa fa-usd" aria-hidden="true"></i>
+                        <%= totexpense %>
+                    </div>
+                </div>
+            </div>
+            <div class="greetings">
+                <div class="Greeting"></div>
+            </div>
+        </div>
+    
+    
+        <div class="recentTransc">
+            <div class="topSection">
+                <div class="subHeading">Transactions</div>
+                <div class="container">
+                    <a href="/new"><i class="fa fa-plus-circle fa-3x addBtn " aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="line"></div>
+        
+            <div class="mainSection">
+                <% if(locals.transactions && transactions.length>0){
+                    for(var i = transactions.length-1;i>=0;i--)
+                    {   
+                %>
+                <div class="transaction1">
+                    <div class="name">
+                        <% if(transactions[i].type === "Credited"){ %>
+                            <div class="signal-green"></div>
+                        <% } else {%>
+                            <div class="signal-red"></div>
+                        <%} %>
+                        <div class="actualname"><%=transactions[i].title%></div>
+                    </div>
+                    <div class="details">
+                        <div class="amount"><i class="fa fa-usd" aria-hidden="true"></i>
+                            <%= transactions[i].amount%>
+                        </div>
+                        <div class="date"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            <%= transactions[i].date%>
+                        </div>
+                        <div class="description"><i class="fa fa-comment" aria-hidden="true"></i>
+                            <%= transactions[i].description%>
+                        </div>
+                    </div>
+                    <div class="transacBtn">
+                        <a href="/edit/<%= transactions[i].id %>" class="editBtn">Edit</a>
+                        <a href="/api/transactions/delete/<%= transactions[i].id %>" class="delBtn">Delete</a>
+                    </div>
+                </div>
+                <%}} else { %>
+                    <div class="errmsg">No transactions found. Keep track of your finances by recording transactions here!</div>
+                <% } %>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    
+    <script src="index.js"></script>
+</body>
+</html>
